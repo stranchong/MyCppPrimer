@@ -5,27 +5,34 @@
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
-    srand((unsigned)time(NULL));
-    vector<int> v;
-    
-    for (int i = 0; i < 10; i++) {
-        v.push_back(rand() % 20);
-    }
-
-    int num;
-    fprintf(stdout, "Please input the number:");
-    scanf("%d", &num);
-
-    bool is_find = false;
-    for (vector<int>::iterator iter1 = v.begin(), iter2 = iter1 + 5; iter1 != iter2; iter1++) {
+bool find_num(vector<int>::iterator iter1, vector<int>::iterator iter2, int num) {
+    for (; iter1 != iter2; iter1++) {
         if (*iter1 == num) {
-            is_find = true;
-            break;
+            return true;
         }
     }
+
+    return false;
+}
+
+int main(int argc, char* argv[]) {
+    srand((unsigned)time(NULL));
+
+    vector<int> v;
+    for (int i = 0; i < 10; i++) {
+        v.push_back(rand() % 20);
+        fprintf(stdout, "%d ", v[i]);
+    }
+    fprintf(stdout, "\n");
+
+    int range;
+    int num;
+    fprintf(stdout, "Please input the iterator range(max=10):");
+    scanf("%d", &range);
+    fprintf(stdout, "Please input the number:");
+    scanf("%d", &num);
     
-    if (is_find) {
+    if (find_num(v.begin(), v.begin() + range, num)) {
 	fprintf(stdout, "Found.\n");
     } else {
 	fprintf(stdout, "Not found.\n");
